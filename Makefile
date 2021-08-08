@@ -100,10 +100,10 @@ $(OUTPUT).3gx : $(OFILES)
 #---------------------------------------------------------------------------------
 	@echo Creating $(notdir $@)
 ifeq ($(OS),Windows_NT)
-	@$(TOPDIR)/3gxtool.exe -s $(word 1, $^) $(TOPDIR)/$(PLGINFO) $@
+	@$(TOPDIR)/3gxtool.exe -s -d $(word 1, $^) $(TOPDIR)/$(PLGINFO) $@
 endif
 ifeq ($(shell uname),Darwin)
-	@WINEDEBUG=-all wine64 $(TOPDIR)/3gxtool64.exe -s $(word 1, $^) $(TOPDIR)/$(PLGINFO) $@
+	@WINEDEBUG=-all wine64 $(TOPDIR)/3gxtool64.exe -s -d $(word 1, $^) $(TOPDIR)/$(PLGINFO) $@
 endif
 
 -include $(DEPENDS)

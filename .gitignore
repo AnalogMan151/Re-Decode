@@ -1,4 +1,5 @@
 /Build
+/Resources
 *.3gx
 .DS_Store
 .vscode
