@@ -2,7 +2,7 @@
 #define OSD_MANAGER_HPP
 
 #include <3ds.h>
-#include "CTRPluginFramework.hpp"
+#include <CTRPluginFramework.hpp>
 
 #include <map>
 #include <string>

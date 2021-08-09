@@ -1,7 +1,7 @@
 #ifndef WRAPPERS_HPP
 #define WRAPPERS_HPP
 
-#include "CTRPluginFramework.hpp"
+#include <CTRPluginFramework.hpp>
 
 namespace CTRPluginFramework
 {

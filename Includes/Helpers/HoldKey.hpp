@@ -1,7 +1,7 @@
 #ifndef HOLDKEY_HPP
 #define HOLDKEY_HPP
 
-#include "CTRPluginFramework.hpp"
+#include <CTRPluginFramework.hpp>
 
 namespace CTRPluginFramework
 {

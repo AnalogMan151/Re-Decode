@@ -2,8 +2,8 @@
 #define HELPERS_KEYSEQUENCE_HPP
 
 #include "Types.h"
-#include "CTRPluginFramework/System/Controller.hpp"
-#include "CTRPluginFramework/System/Clock.hpp"
+#include <CTRPluginFramework/System/Controller.hpp>
+#include <CTRPluginFramework/System/Clock.hpp>
 
 #include <vector>
 
