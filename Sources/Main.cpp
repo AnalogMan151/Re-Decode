@@ -38,7 +38,7 @@ namespace CTRPluginFramework
 		// Input keyboard customization
 		Settings.Keyboard.Background = Color(0x2E2F35FF);
 		Settings.Keyboard.KeyBackground = Color(0x2E2F35FF);
-		Settings.Keyboard.KeyBackgroundPressed = Color(0x4F1F39FF);
+        Settings.Keyboard.KeyBackgroundPressed = Settings.Keyboard.KeyBackground.Blend(Color(0xFF1A697F), Color::BlendMode::Alpha).Fade(.1f);;
 		Settings.Keyboard.KeyText = Color(Color::White);
 		Settings.Keyboard.KeyTextPressed = Color(Color::White);
         Settings.Keyboard.KeyTextDisabled = Color(0x2E2F35FF);
@@ -50,7 +50,7 @@ namespace CTRPluginFramework
 		Settings.CustomKeyboard.BackgroundSecondary = Color(0x252A3BFF);
 		Settings.CustomKeyboard.BackgroundBorder = Color(0x4C567FFF);
 		Settings.CustomKeyboard.KeyBackground = Color(0x313341FF);
-		Settings.CustomKeyboard.KeyBackgroundPressed = Color(0x4F1F39FF);
+        Settings.CustomKeyboard.KeyBackgroundPressed = Settings.CustomKeyboard.KeyBackground.Blend(Color(0xFF1A697F), Color::BlendMode::Alpha).Fade(.1f);;
 		Settings.CustomKeyboard.KeyText = Color(Color::White);
 		Settings.CustomKeyboard.KeyTextPressed = Color(Color::White);
 		Settings.CustomKeyboard.ScrollBarBackground = Color(0x0F0F10FF);
