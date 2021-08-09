@@ -7,7 +7,7 @@
 /* Beta Tester Whitelist */
 std::vector<std::string> approvedCodes =
 {
-	
+    
 };
 
 std::string about = "Cheat plugin for Digimon World RE:Digitize: Decode\n"
@@ -21,41 +21,41 @@ namespace CTRPluginFramework
 {
     void PatchProcess(FwkSettings &Settings)
     {
-		// Customize the general interface
-		Settings.AllowActionReplay = true;
-		Settings.AllowSearchEngine = true;
+        // Customize the general interface
+        Settings.AllowActionReplay = true;
+        Settings.AllowSearchEngine = true;
         Settings.TryLoadSDSounds = false;
 
-		Settings.MainTextColor = Color(Color::White);
-		Settings.WindowTitleColor = Color(Color::White);;
-		Settings.MenuSelectedItemColor = Color(Color::White);
-		Settings.MenuUnselectedItemColor = Color(Color::White);;
-		Settings.BackgroundMainColor = Color(0x2E2F35FF);
-		Settings.BackgroundSecondaryColor = Color(0x252A3BFF);
-		Settings.BackgroundBorderColor = Color(0x4C567FFF);
+        Settings.MainTextColor = Color(Color::White);
+        Settings.WindowTitleColor = Color(Color::White);;
+        Settings.MenuSelectedItemColor = Color(Color::White);
+        Settings.MenuUnselectedItemColor = Color(Color::White);;
+        Settings.BackgroundMainColor = Color(0x2E2F35FF);
+        Settings.BackgroundSecondaryColor = Color(0x252A3BFF);
+        Settings.BackgroundBorderColor = Color(0x4C567FFF);
         Settings.CursorFadeValue = -0.3f;
-		
-		// Input keyboard customization
-		Settings.Keyboard.Background = Color(0x2E2F35FF);
-		Settings.Keyboard.KeyBackground = Color(0x2E2F35FF);
+        
+        // Input keyboard customization
+        Settings.Keyboard.Background = Color(0x2E2F35FF);
+        Settings.Keyboard.KeyBackground = Color(0x2E2F35FF);
         Settings.Keyboard.KeyBackgroundPressed = Settings.Keyboard.KeyBackground.Blend(Color(0xFF1A697F), Color::BlendMode::Alpha).Fade(.1f);;
-		Settings.Keyboard.KeyText = Color(Color::White);
-		Settings.Keyboard.KeyTextPressed = Color(Color::White);
+        Settings.Keyboard.KeyText = Color(Color::White);
+        Settings.Keyboard.KeyTextPressed = Color(Color::White);
         Settings.Keyboard.KeyTextDisabled = Color(0x2E2F35FF);
-		Settings.Keyboard.Cursor = Color(Color::White);
-		Settings.Keyboard.Input = Color(Color::White);
-		
-		// List keyboard customization
-		Settings.CustomKeyboard.BackgroundMain = Color(0x2E2F35FF);
-		Settings.CustomKeyboard.BackgroundSecondary = Color(0x252A3BFF);
-		Settings.CustomKeyboard.BackgroundBorder = Color(0x4C567FFF);
-		Settings.CustomKeyboard.KeyBackground = Color(0x313341FF);
+        Settings.Keyboard.Cursor = Color(Color::White);
+        Settings.Keyboard.Input = Color(Color::White);
+        
+        // List keyboard customization
+        Settings.CustomKeyboard.BackgroundMain = Color(0x2E2F35FF);
+        Settings.CustomKeyboard.BackgroundSecondary = Color(0x252A3BFF);
+        Settings.CustomKeyboard.BackgroundBorder = Color(0x4C567FFF);
+        Settings.CustomKeyboard.KeyBackground = Color(0x313341FF);
         Settings.CustomKeyboard.KeyBackgroundPressed = Settings.CustomKeyboard.KeyBackground.Blend(Color(0xFF1A697F), Color::BlendMode::Alpha).Fade(.1f);;
-		Settings.CustomKeyboard.KeyText = Color(Color::White);
-		Settings.CustomKeyboard.KeyTextPressed = Color(Color::White);
-		Settings.CustomKeyboard.ScrollBarBackground = Color(0x0F0F10FF);
-		Settings.CustomKeyboard.ScrollBarThumb = Color(0x0546AFFF);
-	}
+        Settings.CustomKeyboard.KeyText = Color(Color::White);
+        Settings.CustomKeyboard.KeyTextPressed = Color(Color::White);
+        Settings.CustomKeyboard.ScrollBarBackground = Color(0x0F0F10FF);
+        Settings.CustomKeyboard.ScrollBarThumb = Color(0x0546AFFF);
+    }
 
     // This function is called when the process exits
     // Useful to save settings, undo patchs or clean up things
@@ -63,19 +63,19 @@ namespace CTRPluginFramework
     {
 
     }
-	
+    
     int main(void)
     {	
-		PluginMenu *Menu = new PluginMenu("Re:Decode", 1, 0, 0, about);
+        PluginMenu *Menu = new PluginMenu("Re:Decode", 1, 0, 0, about);
 
-		Menu->ShowWelcomeMessage(false);
-		Menu->SynchronizeWithFrame(true);
-		Menu->SetHexEditorState(true);
-		
+        Menu->ShowWelcomeMessage(false);
+        Menu->SynchronizeWithFrame(true);
+        Menu->SetHexEditorState(true);
+        
         InitMenu(*Menu);
-		
-		Menu->Run();
-		delete Menu;
+        
+        Menu->Run();
+        delete Menu;
         return (0);
     }
 }

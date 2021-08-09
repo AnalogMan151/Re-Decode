@@ -25,18 +25,18 @@
 
 namespace CTRPluginFramework
 {
-	using namespace std;
+    using namespace std;
 
-	using CallbackPointer = void (*)(void);
-	using OnEventCallback = void(*)(Keyboard&, KeyboardEvent &event);
-	using String = string;
-	using StringVector = vector<string>;
-	using uVector32 = vector<u32>;
-	using uVector16 = vector<u16>;
-	using uVector8 = vector<u8>;
-	using sVector32 = vector<s32>;
-	using sVector16 = vector<s16>;
-	using sVector8 = vector<s8>;
+    using CallbackPointer = void (*)(void);
+    using OnEventCallback = void(*)(Keyboard&, KeyboardEvent &event);
+    using String = string;
+    using StringVector = vector<string>;
+    using uVector32 = vector<u32>;
+    using uVector16 = vector<u16>;
+    using uVector8 = vector<u8>;
+    using sVector32 = vector<s32>;
+    using sVector16 = vector<s16>;
+    using sVector8 = vector<s8>;
 }
 
 #endif
