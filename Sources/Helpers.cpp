@@ -1,4 +1,4 @@
-#include "CTRPluginFramework.hpp"
+#include <CTRPluginFramework.hpp>
 #include "Helpers.hpp"
 #include <memory>
 #include <string>
