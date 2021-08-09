@@ -24,6 +24,37 @@ namespace CTRPluginFramework
 		// Customize the general interface
 		Settings.AllowActionReplay = true;
 		Settings.AllowSearchEngine = true;
+        Settings.TryLoadSDSounds = false;
+
+		Settings.MainTextColor = Color(Color::White);
+		Settings.WindowTitleColor = Color(Color::White);;
+		Settings.MenuSelectedItemColor = Color(Color::White);
+		Settings.MenuUnselectedItemColor = Color(Color::White);;
+		Settings.BackgroundMainColor = Color(0x2E2F35FF);
+		Settings.BackgroundSecondaryColor = Color(0x252A3BFF);
+		Settings.BackgroundBorderColor = Color(0x4C567FFF);
+        Settings.CursorFadeValue = -0.3f;
+		
+		// Input keyboard customization
+		Settings.Keyboard.Background = Color(0x2E2F35FF);
+		Settings.Keyboard.KeyBackground = Color(0x2E2F35FF);
+		Settings.Keyboard.KeyBackgroundPressed = Color(0x4F1F39FF);
+		Settings.Keyboard.KeyText = Color(Color::White);
+		Settings.Keyboard.KeyTextPressed = Color(Color::White);
+        Settings.Keyboard.KeyTextDisabled = Color(0x2E2F35FF);
+		Settings.Keyboard.Cursor = Color(Color::White);
+		Settings.Keyboard.Input = Color(Color::White);
+		
+		// List keyboard customization
+		Settings.CustomKeyboard.BackgroundMain = Color(0x2E2F35FF);
+		Settings.CustomKeyboard.BackgroundSecondary = Color(0x252A3BFF);
+		Settings.CustomKeyboard.BackgroundBorder = Color(0x4C567FFF);
+		Settings.CustomKeyboard.KeyBackground = Color(0x313341FF);
+		Settings.CustomKeyboard.KeyBackgroundPressed = Color(0x4F1F39FF);
+		Settings.CustomKeyboard.KeyText = Color(Color::White);
+		Settings.CustomKeyboard.KeyTextPressed = Color(Color::White);
+		Settings.CustomKeyboard.ScrollBarBackground = Color(0x0F0F10FF);
+		Settings.CustomKeyboard.ScrollBarThumb = Color(0x0546AFFF);
 	}
 
     // This function is called when the process exits
