@@ -29,25 +29,6 @@ using FuncPointer = void(*)(MenuEntry *);
 #define READDOUBLE(address, value) Process::ReadDouble(address, value)
 #define READSTRING(address, value, size, format) Process::ReadString(address, value, size, format)
 
-// Menu Helpers
-MenuEntry *Entry(const std::string &name, const std::string &note);
-MenuEntry *Entry(const std::string &name, FuncPointer gamefunc);
-MenuEntry *Entry(const std::string &name, FuncPointer gamefunc, FuncPointer menuFunc);
-MenuEntry *Entry(const std::string &name, const std::string &note, FuncPointer gamefunc);
-MenuEntry *Entry(const std::string &name, const std::string &note, FuncPointer gamefunc, FuncPointer menuFunc);
-MenuEntry *Entry(u32 radio, const std::string &name, FuncPointer gamefunc);
-MenuEntry *Entry(u32 radio, const std::string &name, FuncPointer gamefunc, FuncPointer menuFunc);
-MenuEntry *Entry(u32 radio, const std::string &name, const std::string &note, FuncPointer gamefunc);
-MenuEntry *Entry(u32 radio, const std::string &name, const std::string &note, FuncPointer gamefunc, FuncPointer menuFunc);
-MenuEntry *EntryWithHotkey(const std::string &name, FuncPointer gamefunc, const std::vector<Hotkey> &hotkeys);
-MenuEntry *EntryWithHotkey(const std::string &name, FuncPointer gamefunc, FuncPointer menuFunc, const std::vector<Hotkey> &hotkeys);
-MenuEntry *EntryWithHotkey(const std::string &name, const std::string &note, FuncPointer gamefunc, const std::vector<Hotkey> &hotkeys);
-MenuEntry *EntryWithHotkey(const std::string &name, const std::string &note, FuncPointer gamefunc, FuncPointer menuFunc, const std::vector<Hotkey> &hotkeys);
-MenuEntry *EntryWithHotkey(u32 radio, const std::string &name, FuncPointer gamefunc, const std::vector<Hotkey> &hotkeys);
-MenuEntry *EntryWithHotkey(u32 radio, const std::string &name, FuncPointer gamefunc, FuncPointer menuFunc, const std::vector<Hotkey> &hotkeys);
-MenuEntry *EntryWithHotkey(u32 radio, const std::string &name, const std::string &note, FuncPointer gamefunc, const std::vector<Hotkey> &hotkeys);
-MenuEntry *EntryWithHotkey(u32 radio, const std::string &name, const std::string &note, FuncPointer gamefunc, FuncPointer menuFunc, const std::vector<Hotkey> &hotkeys);
-
 // Useful Functions
 bool IsOnWhiteList(void);
 

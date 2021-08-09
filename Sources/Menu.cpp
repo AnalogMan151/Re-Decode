@@ -1,7 +1,7 @@
 #include "Menu.hpp"
 #include "Cheats.hpp"
 #include "Unicode.h"
-#include "Helpers.hpp"
+#include "Helpers/HotkeyHelpers.hpp"
 
 MenuEntry *g_setMoneyFunc = Entry("Freeze Bits [KB]", setMoneyFunc, setMoneyKBFunc);
 MenuEntry *g_setRunSpeedFunc = Entry("Change Run Speed [KB]", setRunSpeedFunc, setRunSpeedKBFunc);
