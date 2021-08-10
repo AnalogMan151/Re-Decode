@@ -94,8 +94,10 @@ using StringVector = std::vector<std::string>;
 // isHungry Flag (u8): 0x539
 // Care Mistakes (u32): 0x53C
 // Battles (u32): 0x540
+// Digested (u8): 0x548
 // hasToPoop Flag (u8): 0x549
-// Poop Timer (u32): 0x550
+// Poop Timer (u32): 0x54C
+// Poop Timer to Icon (u32): 0x550
 // Lifetime (u32): 0x55C
 // Evolution Timer (u32): 0x560
 // Bitmask of learned skills (0x8): 0x69C
