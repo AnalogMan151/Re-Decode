@@ -88,7 +88,7 @@ using StringVector = std::vector<std::string>;
 // Poop/Corruption (u8): 0x48
 // Sleep Timer (u32): 0x510
 // Health Status (u8): 0x518
-// Hunger Timer (u32): 0x51C
+// Hunger Care Mistake Timer (u32): 0x51C
 // Exhaustion (u8): 0x530
 // Fullness (u8): 0x538
 // isHungry Flag (u8): 0x539
@@ -132,6 +132,19 @@ u8 digimonList[179] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,18,19,20,21,
                        220,221,224,225,226,227,228,229,230,231,232,233,234,235,
                        236,237,238,239,240,242,244,245,247};
 */
+
+struct DigimonList
+{
+    const char *name;
+    const u8 value;
+};
+
+extern const std::vector<DigimonList> freshOptions;
+extern const std::vector<DigimonList> inTrainingOptions;
+extern const std::vector<DigimonList> rookieOptions;
+extern const std::vector<DigimonList> championOptions;
+extern const std::vector<DigimonList> ultimateOptions;
+extern const std::vector<DigimonList> megaOptions;
 
 enum BOOSTED_TRAINING_FLAGS
 {
