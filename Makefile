@@ -11,8 +11,10 @@ CTRPFLIB	?=	$(DEVKITPRO)/libctrpf
 
 PLGNAME		:= 	Re-Decode
 PLGINFO 	:= 	Re-Decode.plgInfo
+TITLEID     :=  00040000000AFC00
 
 BUILD		:= 	Build
+RELEASE     :=  Release
 INCLUDES	:= 	Includes
 SOURCES 	:= 	Sources Sources/Helpers
 
@@ -72,9 +74,21 @@ $(BUILD):
 #---------------------------------------------------------------------------------
 clean:
 	@echo Cleaning ... 
-	@rm -fr $(BUILD) $(OUTPUT).3gx
+	@rm -fr $(BUILD) $(RELEASE) $(OUTPUT).3gx $(OUTPUT).zip
 
 re: clean all
+
+#---------------------------------------------------------------------------------
+release: $(BUILD)
+	@rm -rf $(RELEASE) $(OUTPUT).zip
+	@echo Creating Release folder ...
+	@mkdir -p $(CURDIR)/$(RELEASE)/luma/plugins/$(TITLEID)/
+	@echo Copying files....
+	@cp $(CURDIR)/boot.firm $(CURDIR)/$(RELEASE)/boot.firm
+	@cp $(OUTPUT).3gx $(RELEASE)/luma/plugins/$(TITLEID)/$(PLGNAME).3gx
+	@echo Zipping release...
+	@cd $(RELEASE); zip -r9T ../$(PLGNAME).zip *
+	@echo Release created successfully.
 
 #---------------------------------------------------------------------------------
 

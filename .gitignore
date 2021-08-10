@@ -1,5 +1,8 @@
 /Build
 /Resources
+/Release
 *.3gx
 .DS_Store
 .vscode
+*.zip
+
