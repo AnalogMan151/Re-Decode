@@ -196,13 +196,7 @@ void setAnimationSpeedKBFunc(MenuEntry *entry)
     return;
 }
 
-struct DigimonList
-{
-    const char *name;
-    const u8 value;
-};
-
-static const std::vector<DigimonList> freshOptions =
+const std::vector<DigimonList> freshOptions =
 {
     { "Dodomon", 1 },
     { "Botamon", 2 },
@@ -213,7 +207,7 @@ static const std::vector<DigimonList> freshOptions =
     { "Punimon", 244 }
 };
 
-static const std::vector<DigimonList> inTrainingOptions =
+const std::vector<DigimonList> inTrainingOptions =
 {
     { "Wanyamon", 6 },
     { "Koromon", 7 },
@@ -224,7 +218,7 @@ static const std::vector<DigimonList> inTrainingOptions =
     { "Tsunomon", 245 }
 };
 
-static const std::vector<DigimonList> rookieOptions = 
+const std::vector<DigimonList> rookieOptions = 
 {
     { "Agumon", 15 },
     { "Impmon", 20 },
@@ -258,7 +252,7 @@ static const std::vector<DigimonList> rookieOptions =
     { "Goburimon", 26 }
 };
 
-static const std::vector<DigimonList> championOptions = 
+const std::vector<DigimonList> championOptions = 
 {
     { "Ikkakumon", 153 },
     { "Woodmon", 201 },
@@ -301,7 +295,7 @@ static const std::vector<DigimonList> championOptions =
     { "BlackGatomon", 45 }
 };
 
-static const std::vector<DigimonList> ultimateOptions = 
+const std::vector<DigimonList> ultimateOptions = 
 {
     { "MegaKabuterimon", 99 },
     { "Andromon", 151 },
@@ -348,7 +342,7 @@ static const std::vector<DigimonList> ultimateOptions =
     { "B-WereGarurumon", 92 }
 };
 
-static const std::vector<DigimonList> megaOptions = 
+const std::vector<DigimonList> megaOptions = 
 {
     { "Alphamon", 224 },
     { "UlforceVeedramon", 225 },

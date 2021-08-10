@@ -2,6 +2,7 @@
 #include "Cheats.hpp"
 #include "Unicode.h"
 #include "Helpers/HotkeyHelpers.hpp"
+#include "Overlay.hpp"
 
 MenuEntry *g_setMoneyFunc = Entry("Freeze Bits [KB]", setMoneyFunc, setMoneyKBFunc);
 MenuEntry *g_setRunSpeedFunc = Entry("Change Run Speed [KB]", setRunSpeedFunc, setRunSpeedKBFunc);
@@ -51,13 +52,13 @@ void InitMenu(PluginMenu &Menu)
     Menu += Stats;
 
     MenuFolder *Care = new MenuFolder("Care Modifiers");
+    *Care += Entry("Freeze Digimon Aging", "Also stops digivolution", freezeDigimonFunc);
     *Care += Entry("Freeze Sleep", freezeSleepFunc);
     *Care += Entry("Freeze Hunger & Fullness", freezeHungerFunc);
     *Care += Entry("Freeze Poop", freezePoopFunc);
     *Care += Entry("Never Exhausted", neverExhaustedFunc);
     *Care += Entry("Never Sick/Injured", neverUnhealthyFunc);
     *Care += Entry("Max Lives", maxLivesFunc);
-    *Care += Entry("Freeze Digimon Aging", "Also stops digivolution", freezeDigimonFunc);
     *Care += EntryWithHotkey("Instant Digivolve (See Note)", instantDigivolveFunc, { Hotkey(Key::L + Key::R + Key::A, "Instant Digivolve") });
     *Care += Entry("Set Happiness Meter", nullptr, setHappinessMeterFunc);
     *Care += Entry("Set Discipline Meter", nullptr, setDisciplineMeterFunc);
@@ -87,8 +88,20 @@ void InitMenu(PluginMenu &Menu)
     *Fun += Entry("Change Partner", nullptr, replacePartnerDigimonFunc);
     Menu += Fun;
 
+    Menu += Entry(Utils::Format("Terminal (Hold %s for 2 seconds)", FONT_B), "Opens a terminal window of info. May experience lag while terminal is open.");
     Menu += Entry("Additional Info", "Save often. While tested it's better safe than sorry.\n\n"
                                      "Entries with [KB] can be customized with the keyboard icon.\n\n"
                                      "Some cheats require loading a save, read the message boxes to know which ones.\n\n"
                                      "Cheats with hot keys can have the keys changed with the gamepad icon.");
+    MenuEntry *spacer = Entry("", nullptr);
+    spacer->CanBeSelected(false);
+    spacer->Hide();
+    
+    MenuEntry *term = Entry("", toggleOverlayFunc);
+    term->CanBeSelected(false);
+    term->Hide();
+    term->Enable();
+    Menu += spacer;
+    Menu += spacer;
+    Menu += term;
 }
