@@ -2,19 +2,13 @@
 
 using namespace CTRPluginFramework;
 
-// Hold B for 2 seconds to Run or Stop OSD
+// Hold START for 1.5 seconds to Run or Stop OSD
 void toggleOverlayFunc(MenuEntry *entry)
 {
-    static HoldKey bHold(Key::B, Seconds(2.f));
+    static HoldKey sHold(Key::Start, Seconds(1.5f));
     static bool showOSD = false;
 
-    if (!entry->IsActivated())
-    {
-        OSD::Stop(Terminal);
-        return;
-    }
-
-    if (bHold())
+    if (sHold())
         showOSD = !showOSD;
     
     if (showOSD)
