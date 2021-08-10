@@ -11,33 +11,22 @@ void freezeSleepFunc(MenuEntry *entry)
 
     if (entry->WasJustActivated())
         if (!READ32(sleepTimer_addr, timer)) return;
-    else if (entry->IsActivated())
-        if (!WRITE32(sleepTimer_addr, timer)) return;
+    
+    WRITE32(sleepTimer_addr, timer);
 }
 
 void freezeHungerFunc(MenuEntry *entry)
 {
-    static u32 hungerTimer_addr = digimon_addr + 0x51C;
-    static u32 fullness_addr = digimon_addr + 0x538;
-    static u32 timer;
+    static u32 hunger_addr = digimon_addr + 0x538;
 
-    if (entry->WasJustActivated())
-        if (!READ32(hungerTimer_addr, timer)) return;
-    else if (entry->IsActivated())
-        if (!WRITE32(hungerTimer_addr, timer)) return;
-
-    WRITE32(fullness_addr, 20);
+    WRITE16(hunger_addr, 20);
 }
 
 void freezePoopFunc(MenuEntry *entry)
 {
-    static u32 poopTimer_addr = digimon_addr + 0x550;
-    static u32 timer;
+    static u32 poop_addr = digimon_addr + 0x548;
 
-    if (entry->WasJustActivated())
-        if (!READ32(poopTimer_addr, timer)) return;
-    else if (entry->IsActivated())
-        if (!WRITE32(poopTimer_addr, timer)) return;
+    WRITE16(poop_addr, 0);
 }
 
 void neverExhaustedFunc(MenuEntry *entry)

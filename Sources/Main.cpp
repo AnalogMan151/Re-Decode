@@ -19,6 +19,7 @@ std::string about = "Cheat plugin for Digimon World RE:Digitize: Decode\n"
 
 namespace CTRPluginFramework
 {
+    // This function is called on the plugin starts, before main
     void PatchProcess(FwkSettings &Settings)
     {
         // Customize the general interface
