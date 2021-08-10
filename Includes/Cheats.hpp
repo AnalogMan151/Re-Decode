@@ -240,4 +240,8 @@ void setPlayerNameKBFunc(MenuEntry *entry);
 void setDigiNameKBFunc(MenuEntry *entry);
 void replacePartnerDigimonFunc(MenuEntry *entry);
 
+// OSD Functions
+void toggleOverlayFunc(MenuEntry *entry);
+bool Terminal(const Screen& screen);
+
 #endif

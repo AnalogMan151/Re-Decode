@@ -4,6 +4,19 @@
 
 using namespace CTRPluginFramework;
 
+// Freezes life and evolution timer to post-pone evolution and death
+void freezeDigimonFunc(MenuEntry *entry)
+{
+    static u32 lifetime_addr = digimon_addr + 0x55C;
+    static u64 lifetime_evolution;
+
+    if (entry->WasJustActivated())
+        READ64(lifetime_addr, lifetime_evolution);
+
+    WRITE64(lifetime_addr, lifetime_evolution);
+}
+
+// Freezes sleep timer to post-pone bed time
 void freezeSleepFunc(MenuEntry *entry)
 {
     static u32 sleepTimer_addr = digimon_addr + 0x510;
@@ -15,6 +28,7 @@ void freezeSleepFunc(MenuEntry *entry)
     WRITE32(sleepTimer_addr, timer);
 }
 
+// Sets isHungry flag to 0 and sets fullness to 20 for infinite feeding.
 void freezeHungerFunc(MenuEntry *entry)
 {
     static u32 hunger_addr = digimon_addr + 0x538;
@@ -22,6 +36,7 @@ void freezeHungerFunc(MenuEntry *entry)
     WRITE16(hunger_addr, 20);
 }
 
+// Sets hastoPoop flag to 0 and sets Digested value to 0
 void freezePoopFunc(MenuEntry *entry)
 {
     static u32 poop_addr = digimon_addr + 0x548;
@@ -29,6 +44,8 @@ void freezePoopFunc(MenuEntry *entry)
     WRITE16(poop_addr, 0);
 }
 
+
+// Sets exhaustion amount to 0 for infninite training
 void neverExhaustedFunc(MenuEntry *entry)
 {
     static u32 exhaustion_addr = digimon_addr + 0x530;
@@ -36,6 +53,8 @@ void neverExhaustedFunc(MenuEntry *entry)
     WRITE16(exhaustion_addr, 0);
 }
 
+
+// Sets health status flag to 0 to clear Sickness or Injury
 void neverUnhealthyFunc(MenuEntry *entry)
 {
     static u32 healthStatus_addr = digimon_addr + 0x518;
@@ -44,6 +63,7 @@ void neverUnhealthyFunc(MenuEntry *entry)
     WRITE8(healthStatus_addr, 0);
 }
 
+// Sets Lives to 3
 void maxLivesFunc(MenuEntry *entry)
 {
     static u32 lives_addr = digimon_addr + 0x3D;
@@ -51,6 +71,7 @@ void maxLivesFunc(MenuEntry *entry)
     WRITE8(lives_addr, 3);
 }
 
+// Changes nature of your Digimon with keyboard input
 void setNatureFunc(MenuEntry *entry)
 {
     static u32 nature_addr = digimon_addr + 0x3C;
@@ -70,6 +91,7 @@ void setNatureFunc(MenuEntry *entry)
         MessageBox("Nature could not be changed!", DialogType::DialogOk, ClearScreen::Bottom)();
 }
 
+// Set amount of discipline from 0-100% with keyboard input
 void setDisciplineMeterFunc(MenuEntry *entry)
 {
     static u32 discipline_addr = digimon_addr + 0x44;
@@ -98,6 +120,7 @@ void setDisciplineMeterFunc(MenuEntry *entry)
         MessageBox("Error injecting obedience", DialogType::DialogOk, ClearScreen::Bottom)();
 }
 
+// Set amount of happiness from 0-100% with keyboard input
 void setHappinessMeterFunc(MenuEntry *entry)
 {
     static u32 happiness_addr = digimon_addr + 0x40;
@@ -126,6 +149,7 @@ void setHappinessMeterFunc(MenuEntry *entry)
      MessageBox("Error injecting Serotonin", DialogType::DialogOk, ClearScreen::Bottom)();
 }
 
+// Sets amount of times poop accidents have occured with keyboard input
 void setPoopMeterFunc(MenuEntry *entry)
 {
     static u32 poopMeter_addr = digimon_addr + 0x48;
@@ -154,6 +178,7 @@ void setPoopMeterFunc(MenuEntry *entry)
         MessageBox("Error in handling corruption", DialogType::DialogOk, ClearScreen::Bottom)();
 }
 
+// Sets weight value of Digimon with keyboard input
 void setWeightFunc(MenuEntry *entry)
 {
     static u32 weight_addr = digimon_addr + 0x38;
@@ -188,6 +213,7 @@ void setWeightFunc(MenuEntry *entry)
         MessageBox("Error occured in (de)compressing", DialogType::DialogOk, ClearScreen::Bottom)();
 }
 
+// Sets the number of care mistakes with keyboard input
 void setCareMistakeFunc(MenuEntry *entry)
 {
     static u32 careMistakes_addr = digimon_addr + 0x53C;
@@ -216,6 +242,7 @@ void setCareMistakeFunc(MenuEntry *entry)
         MessageBox("Error in handling corruption", DialogType::DialogOk, ClearScreen::Bottom)();
 }
 
+// Sets Digivolve timer to 0 to trigger a digivolve. If no digivolve requirements are met nothing will happen.
 void instantDigivolveFunc(MenuEntry *entry)
 {
     static u32 evolutionTimer_addr = digimon_addr + 0x560;
@@ -223,17 +250,7 @@ void instantDigivolveFunc(MenuEntry *entry)
         WRITE32(evolutionTimer_addr, 0);
 }
 
-void freezeDigimonFunc(MenuEntry *entry)
-{
-    static u32 lifetime_addr = digimon_addr + 0x55C;
-    static u64 lifetime_evolution;
-
-    if (entry->WasJustActivated())
-        READ64(lifetime_addr, lifetime_evolution);
-
-    WRITE64(lifetime_addr, lifetime_evolution);
-}
-
+// Sets life timer to 0 to instantly have Digmon die
 void killDigimonFunc(MenuEntry *entry)
 {
     static u32 lifetime_addr = digimon_addr + 0x55C;

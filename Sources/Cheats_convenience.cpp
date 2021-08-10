@@ -2,6 +2,8 @@
 #include "Types.h"
 #include "Helpers.hpp"
 
+using namespace CTRPluginFramework;
+
 static u32 money = -1;
 static float runSpeedMultiplier = 1.5f;
 static float boostTrainingMultiplier = 1.0f;
@@ -10,8 +12,7 @@ extern MenuEntry *g_setMoneyFunc;
 extern MenuEntry *g_setRunSpeedFunc;
 extern MenuEntry *g_setTrainingMultiFunc;
 
-using namespace CTRPluginFramework;
-
+// Sets money amount with keyboard input or freezes current value
 void setMoneyFunc(MenuEntry *entry)
 {
     static u32 bits_addr = tamer_addr + 0x28;
@@ -35,7 +36,7 @@ static u32 decodeLVXP[31] = {
     25000,  30000,  35000,  40000,  45000,  50000,  60000,  75000, 100000, 140000, 200000
 };
 
-
+// Sets Decode level and applies proper about of XP using keyboard input
 void setDecodeLVLFunc(MenuEntry *entry)
 {
     static u32 decodeLV_addr = tamer_addr + 0x1E34;
@@ -66,6 +67,7 @@ void setDecodeLVLFunc(MenuEntry *entry)
     MessageBox("Error occured in write operation", DialogType::DialogOk, ClearScreen::Bottom)();
 }
 
+// Allows the C-Stick to be used like a D-Pad for camera control and menu navigation. New 2/3DS only.
 void mapDPAD2CStickFunc(MenuEntry *menu)
 {
     if (Controller::IsKeyDown(CStickUp))
@@ -78,6 +80,7 @@ void mapDPAD2CStickFunc(MenuEntry *menu)
         Controller::InjectKey(DPadRight);
 }
 
+// Changes animation framerate. Mostly noticable in menus.
 void enable60FPSFunc(MenuEntry *entry)
 {
     static u32 FPS_addr= global_addr + 0x599D4;
@@ -92,6 +95,7 @@ void enable60FPSFunc(MenuEntry *entry)
         WRITE8(FPS_addr, 1);
 }
 
+// Sets multiplier applied to run speed with kkeyboard input
 void setRunSpeedFunc(MenuEntry *entry)
 {
     static u32 runSpeed_addr = code_addr + 0x360504;
@@ -107,6 +111,7 @@ void setRunSpeedFunc(MenuEntry *entry)
     WRITEFLOAT(runSpeed_addr, runSpeedMultiplier);
 }
 
+// Multiplies the stat increase gained by training with keyboard input
 void setTrainingMultiFunc(MenuEntry *entry)
 {
     static u32 trainingBoostDuration_addr = global_addr + 0x21C48;
@@ -130,6 +135,7 @@ void setTrainingMultiFunc(MenuEntry *entry)
 
 }
 
+// Increases the range at which Digimon become visible in overworld
 void enhanceRenderDistance(MenuEntry *entry)
 {
     // Render Distance 1 is how far away until the event disappears from view
@@ -151,7 +157,30 @@ void enhanceRenderDistance(MenuEntry *entry)
 
 }
 
-// Keyboards
+// Grants 99 to any card you've already unlocked
+void maxKnownCards(MenuEntry *entry)
+{
+    static u32 cardBitmask_addr = tamer_addr + 0x23B8;
+    static u32 cardQuantity_addr = tamer_addr + 0x36D4;
+    u8 byte;
+
+    if (MessageBox("Grant 99 of all currently discovered cards?", DialogType::DialogYesNo, ClearScreen::Both)())
+    {
+        for (int i = 0; i++, i < 588;)
+        {
+            if (!READ8(cardBitmask_addr, byte)) goto error;
+            if (byte >> (((i+1) %8) & 1))
+                if (!WRITE8(cardQuantity_addr + i, 99)) goto error;
+        }
+        MessageBox("Card data successfully unpacked!", DialogType::DialogOk, ClearScreen::Both)();
+    }
+    return;
+
+    error:
+        MessageBox("Fuzzing card data failed", DialogType::DialogOk, ClearScreen::Both)();
+}
+
+// Keyboards for various functions
 
 void setMoneyKBFunc(MenuEntry *entry)
 {
@@ -209,26 +238,4 @@ void setTrainingMultiKBFunc(MenuEntry *entry)
         MessageBox("Function Optimized Successfully", DialogType::DialogOk, ClearScreen::Bottom)();
     }
     return;
-}
-
-void maxKnownCards(MenuEntry *entry)
-{
-    static u32 cardBitmask_addr = tamer_addr + 0x23B8;
-    static u32 cardQuantity_addr = tamer_addr + 0x36D4;
-    u8 byte;
-
-    if (MessageBox("Grant 99 of all currently discovered cards?", DialogType::DialogYesNo, ClearScreen::Both)())
-    {
-        for (int i = 0; i++, i < 588;)
-        {
-            if (!READ8(cardBitmask_addr, byte)) goto error;
-            if (byte >> (((i+1) %8) & 1))
-                if (!WRITE8(cardQuantity_addr + i, 99)) goto error;
-        }
-        MessageBox("Card data successfully unpacked!", DialogType::DialogOk, ClearScreen::Both)();
-    }
-    return;
-
-    error:
-        MessageBox("Fuzzing card data failed", DialogType::DialogOk, ClearScreen::Both)();
 }

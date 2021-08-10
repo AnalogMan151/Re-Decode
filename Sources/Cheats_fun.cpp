@@ -8,6 +8,7 @@ extern MenuEntry *g_setAnimationSpeedFunc;
 static float animationSpeedMultiplier = 1.5f;
 enum genders { male, female };
 
+// Changes speed at which animations play. Does not affect in-game clock or Digimon timers
 void setAnimationSpeedFunc(MenuEntry *entry)
 {
     static u32 animationSpeed_addr = code_addr + 0x885C;
@@ -23,6 +24,7 @@ void setAnimationSpeedFunc(MenuEntry *entry)
     WRITEFLOAT(animationSpeed_addr, 5.0f * animationSpeedMultiplier);
 }
 
+// Adjusts camera's zoom and height to allow further control
 void controlCameraZoom(MenuEntry *entry)
 {
     static u32 zoom_addr = camera_addr + 0xE4;
@@ -34,9 +36,10 @@ void controlCameraZoom(MenuEntry *entry)
     // Y pos default: 11.5f
     // Z pos default: 0.0f
     // Zoom default: 40.0f
-    // Min Yaw default: -0.112739 (looking up at sky)
-    // Max Yaw default: 0.239791 (looking down at ground)
+    // Min Yaw default: -0.112739f (looking up at sky)
+    // Max Yaw default: 0.239791f (looking down at ground)
 
+    // Resets camera to default when cheat is disabled
     if (!entry->IsActivated())
     {
         WRITEFLOAT(zoom_addr, 40.f);
@@ -71,6 +74,7 @@ void controlCameraZoom(MenuEntry *entry)
         MessageBox("Could not hijack surveillance systems", DialogType::DialogOk, ClearScreen::Both)();
 }
 
+// Swaps player model texture with various NPC textures. Requires a reload of the save to apply.
 void choosePlayerFunc(MenuEntry *menu)
 {
     static u32 playerChar_addr = global_addr + 0x204BC;
@@ -135,6 +139,7 @@ void choosePlayerFunc(MenuEntry *menu)
         MessageBox("Identity Theft Failed!", DialogType::DialogOk, ClearScreen::Both)();
 }
 
+// Changes Partner Digimon's nickname
 void setDigiNameKBFunc(MenuEntry *entry)
 {
     std::string input;
@@ -158,6 +163,7 @@ void setDigiNameKBFunc(MenuEntry *entry)
     MessageBox("Error forging name", DialogType::DialogOk, ClearScreen::Bottom)();
 }
 
+// Changes player characters nickname
 void setPlayerNameKBFunc(MenuEntry *entry)
 {
     std::string input;
@@ -181,6 +187,7 @@ void setPlayerNameKBFunc(MenuEntry *entry)
     MessageBox("Error forging name", DialogType::DialogOk, ClearScreen::Bottom)();
 }
 
+// Keyboard function to work in conjunction with setAnimationSpeedFunc()
 void setAnimationSpeedKBFunc(MenuEntry *entry)
 {
     float input;
@@ -196,6 +203,7 @@ void setAnimationSpeedKBFunc(MenuEntry *entry)
     return;
 }
 
+// String Vector list of all Digimon and their IDs separated into their evoluition groups
 const std::vector<DigimonList> freshOptions =
 {
     { "Dodomon", 1 },
@@ -399,6 +407,7 @@ const std::vector<DigimonList> megaOptions =
     { "BlackWarGreymon X", 148 }
 };
 
+// Keyboard that lists all the digimon and writes target EVO value and evolution action to trigger a forced evolution
 void replacePartnerDigimonFunc(MenuEntry *entry)
 {
     static u32 evoTarget_addr = global_addr + 0x23170;

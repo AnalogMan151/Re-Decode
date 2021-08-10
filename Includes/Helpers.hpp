@@ -29,7 +29,4 @@ using FuncPointer = void(*)(MenuEntry *);
 #define READDOUBLE(address, value) Process::ReadDouble(address, value)
 #define READSTRING(address, value, size, format) Process::ReadString(address, value, size, format)
 
-// Useful Functions
-bool IsOnWhiteList(void);
-
 #endif

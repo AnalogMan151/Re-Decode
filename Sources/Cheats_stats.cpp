@@ -4,6 +4,7 @@
 
 using namespace CTRPluginFramework;
 
+// Permenantly changes max HP with keyboard
 void setMaxHPFunc(MenuEntry *entry)
 {
     Keyboard keyboard("Init");
@@ -32,6 +33,7 @@ void setMaxHPFunc(MenuEntry *entry)
         MessageBox("Error in accessing buffer", DialogType::DialogOk, ClearScreen::Bottom)();
 }
 
+// Permenantly changes max MP with keyboard
 void setMaxMPFunc(MenuEntry *entry)
 {
     static u32 maxMP_addr = digimon_addr + 0x2C;
@@ -60,6 +62,7 @@ void setMaxMPFunc(MenuEntry *entry)
         MessageBox("Error in accessing buffer", DialogType::DialogOk, ClearScreen::Bottom)();
 }
 
+// Permenantly changes Attack with keyboard
 void setATKFunc(MenuEntry *entry)
 {
     static u32 ATK_addr = digimon_addr + 0x30;
@@ -88,6 +91,7 @@ void setATKFunc(MenuEntry *entry)
         MessageBox("Error in effecting brute force ability", DialogType::DialogOk, ClearScreen::Bottom)();
 }
 
+// Permenantly changes Defense with keyboard
 void setDEFFunc(MenuEntry *entry)
 {
     static u32 DEF_addr = digimon_addr + 0x32;
@@ -116,6 +120,7 @@ void setDEFFunc(MenuEntry *entry)
         MessageBox("Error in effecting firwall", DialogType::DialogOk, ClearScreen::Bottom)();
 }
 
+// Permenantly changes Speed with keyboard
 void setSPDFunc(MenuEntry *entry)
 {
     static u32 SPD_addr = digimon_addr + 0x34;
@@ -144,6 +149,7 @@ void setSPDFunc(MenuEntry *entry)
         MessageBox("Error in tuning clock speed", DialogType::DialogOk, ClearScreen::Bottom)();
 }
 
+// Permenantly changes Brain with keyboard
 void setBRNFunc(MenuEntry *entry)
 {
     static u32 BRN_addr = digimon_addr + 0x36;

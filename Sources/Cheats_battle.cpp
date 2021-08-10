@@ -6,6 +6,7 @@ using namespace CTRPluginFramework;
 
 u32 ptr_addr;
 
+// Checks address values to determine if the right data is loaded into the memory region
 bool isInBattle()
 {
     u32 check1;
@@ -17,6 +18,7 @@ bool isInBattle()
     return (check1 == 0x004CC33C && check2 == 0x004CBF94);
 }
 
+// Overwrites current HP amount with max HP value
 void infHPBattleFunc(MenuEntry *entry)
 {
     static u32 maxHP_addr = digimon_addr + 0x24;
@@ -32,6 +34,7 @@ void infHPBattleFunc(MenuEntry *entry)
     }
 }
 
+// Overwrites current MP amount with max MP value
 void infMPBattleFunc(MenuEntry *entry)
 {
     static u32 maxMP_addr = digimon_addr + 0x2C;
@@ -47,6 +50,7 @@ void infMPBattleFunc(MenuEntry *entry)
     }
 }
 
+// Sets SP amount to 100 to allow infinite Special move use
 void infSPBattleFunc(MenuEntry *entry)
 { 
     u8 currentSP;
@@ -60,6 +64,7 @@ void infSPBattleFunc(MenuEntry *entry)
     }
 }
 
+// Sets enemy's HP to 0 for instant kill
 void instantEnemyDeathFunc(MenuEntry *entry)
 {
     if (isInBattle() && entry->Hotkeys[0].IsPressed())
@@ -69,6 +74,7 @@ void instantEnemyDeathFunc(MenuEntry *entry)
     }
 }
 
+// Sets enemy's HP to 1 at battle start to allow single-hit kill
 void oneHitKOFunc(MenuEntry *entry)
 {
     u32 currentHP;
@@ -82,6 +88,7 @@ void oneHitKOFunc(MenuEntry *entry)
     }
 }
 
+// Sets enemy's MP to 0 so they cannot attack
 void enemyNoMPFunc(MenuEntry *entry)
 {
     u32 currentMP;

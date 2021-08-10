@@ -4,6 +4,7 @@
 
 using namespace CTRPluginFramework;
 
+// Mem copies bitmask to unlock all accessories
 void unlockAccessoriesFunc(MenuEntry *entry)
 {
     static u32 accessories_addr = tamer_addr + 0x2240;
@@ -17,6 +18,7 @@ void unlockAccessoriesFunc(MenuEntry *entry)
         MessageBox("Patching failed!", DialogType::DialogOk, ClearScreen::Both)();
 }
 
+// Mem copies bitmask to unlock all skills
 void unlockSkillsFunc(MenuEntry *entry)
 {
     static u32 skills_addr = digimon_addr + 0x69C;
@@ -28,6 +30,7 @@ void unlockSkillsFunc(MenuEntry *entry)
         MessageBox("Patching failed!", DialogType::DialogOk, ClearScreen::Both)();
 }
 
+// Mem copies bitmask to unlock all digivolutions
 void unlockFieldGuideFunc(MenuEntry *entry)
 {
     static u32 fieldGuide_addr = tamer_addr + 0x2458;
@@ -42,6 +45,7 @@ void unlockFieldGuideFunc(MenuEntry *entry)
         MessageBox("Patching failed!", DialogType::DialogOk, ClearScreen::Both)();
 }
 
+// Mem copies bitmask to unlock all cards (does not grant any quantity)
 void unlockAllCardsFunc(MenuEntry *entry)
 {
     static u32 cardBitMask_addr = tamer_addr + 0x23B8;

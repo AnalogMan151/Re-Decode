@@ -1,35 +1,8 @@
 #include "Cheats.hpp"
-#include "Overlay.hpp"
-#include <math.h>
 
 using namespace CTRPluginFramework;
 
-void terminalOverlay(void)
-{
-    static u32 x = 20, y = 20;
-    Process::Pause();
-    const Screen& screen = OSD::GetTopScreen();
-
-    screen.DrawRect(0, 0, 400, 240, Color::Black, true); // Background
-    OSD::SwapBuffers();
-    while(!Controller::IsKeyPressed(Key::R)) {
-    if(Controller::IsKeyDown(Key::DPadRight)) { // move to the right
-        ++x;
-        screen.DrawRect(0, 0, 400, 240, Color::Black, true);
-        screen.DrawRect(x, 20, 50, 50, Color::White, true); // draw the white square
-        OSD::SwapBuffers();
-    }
-    if(Controller::IsKeyDown(Key::DPadLeft)) { // move to the left
-        --x;
-        screen.DrawRect(0, 0, 400, 240, Color::Black, true);
-        screen.DrawRect(x, 20, 50, 50, Color::White, true); // draw the white square
-        OSD::SwapBuffers();
-    }
-    Controller::Update();
-    }
-    Process::Play();
-}
-
+// Hold B for 2 seconds to Run or Stop OSD
 void toggleOverlayFunc(MenuEntry *entry)
 {
     static HoldKey bHold(Key::B, Seconds(2.f));
@@ -50,6 +23,7 @@ void toggleOverlayFunc(MenuEntry *entry)
         OSD::Stop(Terminal);
 }
 
+// Searches through Digimon groups for matching ID and returns name string
 std::string findDigimon(u8 id)
 {
     for (int i = 0; i < freshOptions.size(); i++)
@@ -73,6 +47,7 @@ std::string findDigimon(u8 id)
     return "Unknown";                
 }
 
+// Draws and populates the terminal OSD with info
 bool Terminal(const Screen& screen)
 {
     int x = 206;
@@ -170,9 +145,3 @@ bool Terminal(const Screen& screen)
 
     return true;
 }
-
-// Add function to OSD call stack
-
-
-// Remove function from OSD call stack
-// OSD::Stop(OSDFunction);

@@ -7,7 +7,6 @@
 
 using namespace CTRPluginFramework;
 
-using StringVector = std::vector<std::string>;
 void InitMenu(PluginMenu &Menu);
 
 #endif
