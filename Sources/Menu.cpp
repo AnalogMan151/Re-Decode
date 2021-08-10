@@ -83,7 +83,7 @@ void InitMenu(PluginMenu &Menu)
     *Care += Entry("Never Exhausted", neverExhaustedFunc);
     *Care += Entry("Never Sick/Injured", neverUnhealthyFunc);
     *Care += Entry("Max Lives", maxLivesFunc);
-    *Care += EntryWithHotkey("Instant Digivolve (See Note)", instantDigivolveFunc, { Hotkey(Key::L + Key::R + Key::A, "Instant Digivolve") });
+    *Care += EntryWithHotkey("Instant Digivolve (See Note)","Won't do anything if no digivolve requirements are met", instantDigivolveFunc, { Hotkey(Key::L + Key::R + Key::A, "Instant Digivolve") });
     *Care += Entry("Set Happiness Meter", nullptr, setHappinessMeterFunc);
     *Care += Entry("Set Discipline Meter", nullptr, setDisciplineMeterFunc);
     *Care += Entry("Set Poop Meter", nullptr, setPoopMeterFunc);
