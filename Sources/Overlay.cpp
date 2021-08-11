@@ -81,8 +81,9 @@ bool Terminal(const Screen& screen)
 {
     int x = 206;
     int y = 10;
-    Color color= Color(Color::Green);
-    Color color_warning(Color::Red);
+    Color color= Color(0x33FF33FF);
+    Color color_warning(0xFFBB00FF);
+    Color bg = Color(0x282828FF);
     static Clock timer;
 
     std::string name;
@@ -133,8 +134,8 @@ bool Terminal(const Screen& screen)
     if (full)
     {
         // Draw background window
-        screen.DrawRect(x, y, 186, 90, Color(Color::Green), true);
-        screen.DrawRect(x+1, y+7, 184, 82, Color(Color::Black), true);
+        screen.DrawRect(x, y, 186, 90, color, true);
+        screen.DrawRect(x+1, y+7, 184, 82, bg, true);
 
         // Draw background window icon
         screen.DrawPixel(x+3, y+1, Color(Color::Black));
@@ -144,8 +145,8 @@ bool Terminal(const Screen& screen)
         screen.DrawPixel(x+3, y+5, Color(Color::Black));
 
         // Draw foreground window
-        screen.DrawRect(x+5, y-5, 186, 90, Color(Color::Green), true);
-        screen.DrawRect(x+6, y+2, 184, 82, Color(Color::Black), true);
+        screen.DrawRect(x+5, y-5, 186, 90, color, true);
+        screen.DrawRect(x+6, y+2, 184, 82, bg, true);
 
         // Draw foreground window icon
         screen.DrawPixel(x+8, y-4, Color(Color::Black));
@@ -165,27 +166,27 @@ bool Terminal(const Screen& screen)
         x += 7;
         y += 2;
 
-        y = screen.Draw("root$ cat ~/.status/" + name, x, y, color);
-        y = screen.Draw(Utils::Format("ID: [%3d] ", id) + digimon, x, y, color);
+        y = screen.Draw("root$ cat ~/.status/" + name, x, y, color, bg);
+        y = screen.Draw(Utils::Format("ID: [%3d] ", id) + digimon, x, y, color, bg);
 
         std::string life_evolveStr = Utils::Format("Life: %d:%02d:%02d  Evolve: %d:%02d:%02d",
             life/216000, (life%216000)/3600, (life%3600)/60, 
             evolve/216000, (evolve%216000)/3600, (evolve%3600)/60);
-        y = screen.Draw(life_evolveStr, x, y, color);
+        y = screen.Draw(life_evolveStr, x, y, color, bg);
         
         std::string poop_sleepStr;
         if (hasToPoop)
             poop_sleepStr = Utils::Format("Poop:   %d:%02d  Sleep:    %d:%02d", (poop1 + poop2)/3600, ((poop1 + poop2)%3600)/60, sleep/3600, (sleep%3600)/60);
         else
             poop_sleepStr = Utils::Format("Poop: No Need  Sleep:    %d:%02d", sleep/3600, (sleep%3600)/60);
-        y = screen.Draw(poop_sleepStr, x, y, color);
-        screen.Draw(Utils::Format("Disc: %d%%", (u32)discipline), x, y, color);
-        y = screen.Draw(Utils::Format("Happy:  %d%%", (u32)happiness), x+90, y, color);
-        y = screen.Draw(Utils::Format("Care Mistakes: %d", care), x, y, color);
-        screen.Draw("Fullness:   ", x, y, color);
-        screen.Draw(Utils::Format("/%d", fullnessLimit), x+84, y, color);
-        y = screen.Draw(Utils::Format("%3d", fullness), x+66, y, isHungry ? color_warning : color);
-        screen.Draw(Utils::Format("Poop Meter: %2d/16", poopMeter), x, y, color);
+        y = screen.Draw(poop_sleepStr, x, y, color, bg);
+        screen.Draw(Utils::Format("Disc: %d%%", (u32)discipline), x, y, color, bg);
+        y = screen.Draw(Utils::Format("Happy:  %d%%", (u32)happiness), x+90, y, color, bg);
+        y = screen.Draw(Utils::Format("Care Mistakes: %d", care), x, y, color, bg);
+        screen.Draw("Fullness:   ", x, y, color, bg);
+        screen.Draw(Utils::Format("/%d", fullnessLimit), x+84, y, color, bg);
+        y = screen.Draw(Utils::Format("%3d", fullness), x+66, y, isHungry ? color_warning : color, bg);
+        screen.Draw(Utils::Format("Poop Meter: %2d/16", poopMeter), x, y, color, bg);
     }
     else
     {
@@ -196,14 +197,14 @@ bool Terminal(const Screen& screen)
                 life / 216000, (life % 216000) / 3600, (life % 3600) / 60,
                 evolve / 216000, (evolve % 216000) / 3600, (evolve % 3600) / 60, 
                 sleep / 3600, (sleep % 3600) / 60, (poop1+poop2) / 3600, ((poop1 + poop2) % 3600) /60,
-                fullness, care), 116, 0, color);
+                fullness, care), 116, 0, color, bg);
         }
         else
         {
             screen.Draw(Utils::Format("L|%d:%02d:%02d E|%d:%02d:%02d S|%02d:%02d P|--:-- F|%03d CM|%02d",
                 life / 216000, (life % 216000) / 3600, (life % 3600) / 60,
                 evolve / 216000, (evolve % 216000) / 3600, (evolve % 3600) / 60, 
-                sleep / 3600, (sleep % 3600) / 60, fullness, care), 116, 0, color);
+                sleep / 3600, (sleep % 3600) / 60, fullness, care), 116, 0, color, bg);
         }
     }
     return true;
