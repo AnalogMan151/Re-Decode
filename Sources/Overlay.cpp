@@ -147,17 +147,19 @@ bool Terminal(const Screen& screen)
     y = screen.Draw("root$ cat ~/.status/" + name, x, y, color);
     y = screen.Draw(Utils::Format("ID: [%3d] ", id) + digimon, x, y, color);
 
-    std::string life_evolveStr = Utils::Format("Life:%3dm %2ds  Evolve:%3dm %2ds", life/3600, (life%3600)/60, evolve/3600, (evolve%3600)/60);
+    std::string life_evolveStr = Utils::Format("Life: %d:%02d:%02d  Evolve: %d:%02d:%02d",
+        life/216000, (life%216000)/3600, (life%3600)/60, 
+        evolve/216000, (evolve%216000)/3600, (evolve%3600)/60);
     y = screen.Draw(life_evolveStr, x, y, color);
     
     std::string poop_sleepStr;
     if (hasToPoop)
-        poop_sleepStr = Utils::Format("Poop:%3dm %2ds  Sleep:%4dm %2ds", (poop1 + poop2)/3600, ((poop1 + poop2)%3600)/60, sleep/3600, (sleep%3600)/60);
+        poop_sleepStr = Utils::Format("Poop:   %d:%02d  Sleep:    %d:%02d", (poop1 + poop2)/3600, ((poop1 + poop2)%3600)/60, sleep/3600, (sleep%3600)/60);
     else
-        poop_sleepStr = Utils::Format("Poop: No Need  Sleep:%4dm %2ds", sleep/3600, (sleep%3600)/60);
+        poop_sleepStr = Utils::Format("Poop: No Need  Sleep:    %d:%02d", sleep/3600, (sleep%3600)/60);
     y = screen.Draw(poop_sleepStr, x, y, color);
     screen.Draw(Utils::Format("Disc: %d%%", (u32)discipline), x, y, color);
-    y = screen.Draw(Utils::Format("Happy: %3d%%", (u32)happiness), x+90, y, color);
+    y = screen.Draw(Utils::Format("Happy:  %d%%", (u32)happiness), x+90, y, color);
     y = screen.Draw(Utils::Format("Care Mistakes: %d", care), x, y, color);
     screen.Draw("Fullness:   ", x, y, color);
     screen.Draw(Utils::Format("/%d", fullnessLimit), x+84, y, color);
