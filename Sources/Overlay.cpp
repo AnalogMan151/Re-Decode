@@ -92,6 +92,8 @@ bool Terminal(const Screen& screen)
     READ32(digimon_addr + 0x550, poop2);
     READ8(digimon_addr + 0x549, hasToPoop);
     READ32(digimon_addr + 0x510, sleep);
+    if (sleep > 0xFF000000)
+        sleep = 0;
     READFLOAT(digimon_addr + 0x44, discipline);
     READFLOAT(digimon_addr + 0x40, happiness);
     READ8(digimon_addr + 0x53C, care);
