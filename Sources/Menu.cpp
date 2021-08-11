@@ -80,7 +80,7 @@ void InitMenu(PluginMenu &Menu)
     *Care += Entry("Freeze Sleep", freezeSleepFunc);
     *Care += Entry("Freeze Hunger & Fullness", freezeHungerFunc);
     *Care += Entry("Freeze Poop", freezePoopFunc);
-    *Care += Entry("Never Exhausted", neverExhaustedFunc);
+    *Care += Entry("Never Fatigued", neverExhaustedFunc);
     *Care += Entry("Never Sick/Injured", neverUnhealthyFunc);
     *Care += Entry("Max Lives", maxLivesFunc);
     *Care += EntryWithHotkey("Instant Digivolve (See Note)","Won't do anything if no digivolve requirements are met", instantDigivolveFunc, { Hotkey(Key::L + Key::R + Key::A, "Instant Digivolve") });
