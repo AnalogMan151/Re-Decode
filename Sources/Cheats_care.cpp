@@ -28,12 +28,12 @@ void freezeSleepFunc(MenuEntry *entry)
     WRITE32(sleepTimer_addr, timer);
 }
 
-// Sets isHungry flag to 0 and sets fullness to 20 for infinite feeding.
+// Sets isHungry flag to 0 and sets fullness to 1 for infinite feeding.
 void freezeHungerFunc(MenuEntry *entry)
 {
     static u32 hunger_addr = digimon_addr + 0x538;
 
-    WRITE16(hunger_addr, 20);
+    WRITE16(hunger_addr, 1);
 }
 
 // Sets hastoPoop flag to 0 and sets Digested value to 0
