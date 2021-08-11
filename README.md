@@ -21,7 +21,7 @@
  ![2021-08-10_11-42-50 517_top](https://user-images.githubusercontent.com/18319133/128909023-567cbc2a-dbcc-482b-a346-ef17ffd33ea0.jpeg)
  ![2021-08-10_11-40-56 935_top](https://user-images.githubusercontent.com/18319133/128909016-0b48f8c4-8e22-4812-bb10-b91f414792dd.jpeg)
  ![2021-08-10_11-38-26 952_bot](https://user-images.githubusercontent.com/18319133/128909009-c22df7f9-6e69-4574-a62e-18e915a03ea9.jpeg)
- 
+
  ![2021-08-10_11-40-56 935_bot](https://user-images.githubusercontent.com/18319133/128909014-fcae95cf-be6c-4625-b833-89d1e62695a5.jpeg)
  ![2021-08-10_11-38-48 711_bot](https://user-images.githubusercontent.com/18319133/128909010-f58cdd78-1127-4fe8-b57d-c4b99c3b86fa.jpeg)
 
@@ -34,7 +34,7 @@
  #### Convenience Cheats:
  * Set/Freeze Bits
  * Map C-Stick to D-pad (new 2/3DS only)
- * 60FPS Patch
+ * 60FPS Patch )new 2/3DS only)
  * Increased Render Distance
  * Run Speed Multiplier
  * Training Boost Multiplier
