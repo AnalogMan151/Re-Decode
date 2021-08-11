@@ -2,14 +2,32 @@
 
 using namespace CTRPluginFramework;
 
+static bool full = true;
+
 // Hold START for 1.5 seconds to Run or Stop OSD
 void toggleOverlayFunc(MenuEntry *entry)
 {
-    static HoldKey sHold(Key::Start, Seconds(1.5f));
+    static HoldKey stHold(Key::Start, Seconds(1.5f));
+    static HoldKey seHold(Key::Select, Seconds(1.5f));
     static bool showOSD = false;
 
-    if (sHold())
-        showOSD = !showOSD;
+    if (stHold())
+    {
+        if (showOSD && !full)
+            full = true;
+        else
+            showOSD = !showOSD;
+        full = true;
+    }
+
+    if (seHold())
+    {
+        if (showOSD && full)
+            full = false;
+        else
+            showOSD = !showOSD;
+        full = false;
+    }
     
     if (showOSD)
         OSD::Run(Terminal);
@@ -65,6 +83,7 @@ bool Terminal(const Screen& screen)
     int y = 10;
     Color color= Color(Color::Green);
     Color color_warning(Color::Red);
+    static Clock timer;
 
     std::string name;
     u32 id = 0;
@@ -111,60 +130,81 @@ bool Terminal(const Screen& screen)
     if (!screen.IsTop)
         return false;
     
-    // Draw background window
-    screen.DrawRect(x, y, 186, 90, Color(Color::Green), true);
-    screen.DrawRect(x+1, y+7, 184, 82, Color(Color::Black), true);
+    if (full)
+    {
+        // Draw background window
+        screen.DrawRect(x, y, 186, 90, Color(Color::Green), true);
+        screen.DrawRect(x+1, y+7, 184, 82, Color(Color::Black), true);
 
-    // Draw background window icon
-    screen.DrawPixel(x+3, y+1, Color(Color::Black));
-    screen.DrawPixel(x+4, y+2, Color(Color::Black));
-    screen.DrawPixel(x+5, y+3, Color(Color::Black));
-    screen.DrawPixel(x+4, y+4, Color(Color::Black));
-    screen.DrawPixel(x+3, y+5, Color(Color::Black));
+        // Draw background window icon
+        screen.DrawPixel(x+3, y+1, Color(Color::Black));
+        screen.DrawPixel(x+4, y+2, Color(Color::Black));
+        screen.DrawPixel(x+5, y+3, Color(Color::Black));
+        screen.DrawPixel(x+4, y+4, Color(Color::Black));
+        screen.DrawPixel(x+3, y+5, Color(Color::Black));
 
-    // Draw foreground window
-    screen.DrawRect(x+5, y-5, 186, 90, Color(Color::Green), true);
-    screen.DrawRect(x+6, y+2, 184, 82, Color(Color::Black), true);
+        // Draw foreground window
+        screen.DrawRect(x+5, y-5, 186, 90, Color(Color::Green), true);
+        screen.DrawRect(x+6, y+2, 184, 82, Color(Color::Black), true);
 
-    // Draw foreground window icon
-    screen.DrawPixel(x+8, y-4, Color(Color::Black));
-    screen.DrawPixel(x+9, y-3, Color(Color::Black));
-    screen.DrawPixel(x+10, y-2, Color(Color::Black));
-    screen.DrawPixel(x+9, y-1, Color(Color::Black));
-    screen.DrawPixel(x+8, y, Color(Color::Black));
-    screen.DrawRect(x+12, y, 5, 1, Color(Color::Black), false);
+        // Draw foreground window icon
+        screen.DrawPixel(x+8, y-4, Color(Color::Black));
+        screen.DrawPixel(x+9, y-3, Color(Color::Black));
+        screen.DrawPixel(x+10, y-2, Color(Color::Black));
+        screen.DrawPixel(x+9, y-1, Color(Color::Black));
+        screen.DrawPixel(x+8, y, Color(Color::Black));
+        screen.DrawRect(x+12, y, 5, 1, Color(Color::Black), false);
 
-    // Draw close button
-    screen.DrawPixel(x+186, y-3, Color(Color::Black));
-    screen.DrawPixel(x+187, y-2, Color(Color::Black));
-    screen.DrawPixel(x+186, y-1, Color(Color::Black));
-    screen.DrawPixel(x+188, y-3, Color(Color::Black));
-    screen.DrawPixel(x+188, y-1, Color(Color::Black));
+        // Draw close button
+        screen.DrawPixel(x+186, y-3, Color(Color::Black));
+        screen.DrawPixel(x+187, y-2, Color(Color::Black));
+        screen.DrawPixel(x+186, y-1, Color(Color::Black));
+        screen.DrawPixel(x+188, y-3, Color(Color::Black));
+        screen.DrawPixel(x+188, y-1, Color(Color::Black));
 
-    x += 7;
-    y += 2;
+        x += 7;
+        y += 2;
 
-    y = screen.Draw("root$ cat ~/.status/" + name, x, y, color);
-    y = screen.Draw(Utils::Format("ID: [%3d] ", id) + digimon, x, y, color);
+        y = screen.Draw("root$ cat ~/.status/" + name, x, y, color);
+        y = screen.Draw(Utils::Format("ID: [%3d] ", id) + digimon, x, y, color);
 
-    std::string life_evolveStr = Utils::Format("Life: %d:%02d:%02d  Evolve: %d:%02d:%02d",
-        life/216000, (life%216000)/3600, (life%3600)/60, 
-        evolve/216000, (evolve%216000)/3600, (evolve%3600)/60);
-    y = screen.Draw(life_evolveStr, x, y, color);
-    
-    std::string poop_sleepStr;
-    if (hasToPoop)
-        poop_sleepStr = Utils::Format("Poop:   %d:%02d  Sleep:    %d:%02d", (poop1 + poop2)/3600, ((poop1 + poop2)%3600)/60, sleep/3600, (sleep%3600)/60);
+        std::string life_evolveStr = Utils::Format("Life: %d:%02d:%02d  Evolve: %d:%02d:%02d",
+            life/216000, (life%216000)/3600, (life%3600)/60, 
+            evolve/216000, (evolve%216000)/3600, (evolve%3600)/60);
+        y = screen.Draw(life_evolveStr, x, y, color);
+        
+        std::string poop_sleepStr;
+        if (hasToPoop)
+            poop_sleepStr = Utils::Format("Poop:   %d:%02d  Sleep:    %d:%02d", (poop1 + poop2)/3600, ((poop1 + poop2)%3600)/60, sleep/3600, (sleep%3600)/60);
+        else
+            poop_sleepStr = Utils::Format("Poop: No Need  Sleep:    %d:%02d", sleep/3600, (sleep%3600)/60);
+        y = screen.Draw(poop_sleepStr, x, y, color);
+        screen.Draw(Utils::Format("Disc: %d%%", (u32)discipline), x, y, color);
+        y = screen.Draw(Utils::Format("Happy:  %d%%", (u32)happiness), x+90, y, color);
+        y = screen.Draw(Utils::Format("Care Mistakes: %d", care), x, y, color);
+        screen.Draw("Fullness:   ", x, y, color);
+        screen.Draw(Utils::Format("/%d", fullnessLimit), x+84, y, color);
+        y = screen.Draw(Utils::Format("%3d", fullness), x+66, y, isHungry ? color_warning : color);
+        screen.Draw(Utils::Format("Poop Meter: %2d/16", poopMeter), x, y, color);
+    }
     else
-        poop_sleepStr = Utils::Format("Poop: No Need  Sleep:    %d:%02d", sleep/3600, (sleep%3600)/60);
-    y = screen.Draw(poop_sleepStr, x, y, color);
-    screen.Draw(Utils::Format("Disc: %d%%", (u32)discipline), x, y, color);
-    y = screen.Draw(Utils::Format("Happy:  %d%%", (u32)happiness), x+90, y, color);
-    y = screen.Draw(Utils::Format("Care Mistakes: %d", care), x, y, color);
-    screen.Draw("Fullness:   ", x, y, color);
-    screen.Draw(Utils::Format("/%d", fullnessLimit), x+84, y, color);
-    y = screen.Draw(Utils::Format("%3d", fullness), x+66, y, isHungry ? color_warning : color);
-    screen.Draw(Utils::Format("Poop Meter: %2d/16", poopMeter), x, y, color);
-
+    {
+        // Draw minimilistic ticker info
+        if (hasToPoop)
+        {
+            screen.Draw(Utils::Format("L|%d:%02d:%02d E|%d:%02d:%02d S|%02d:%02d P|%02d:%02d F|%03d CM|%02d",
+                life / 216000, (life % 216000) / 3600, (life % 3600) / 60,
+                evolve / 216000, (evolve % 216000) / 3600, (evolve % 3600) / 60, 
+                sleep / 3600, (sleep % 3600) / 60, (poop1+poop2) / 3600, ((poop1 + poop2) % 3600) /60,
+                fullness, care), 116, 0, color);
+        }
+        else
+        {
+            screen.Draw(Utils::Format("L|%d:%02d:%02d E|%d:%02d:%02d S|%02d:%02d P|--:-- F|%03d CM|%02d",
+                life / 216000, (life % 216000) / 3600, (life % 3600) / 60,
+                evolve / 216000, (evolve % 216000) / 3600, (evolve % 3600) / 60, 
+                sleep / 3600, (sleep % 3600) / 60, fullness, care), 116, 0, color);
+        }
+    }
     return true;
 }
