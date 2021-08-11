@@ -94,5 +94,5 @@
  ## Credits:
  * Nanquitas for creating the CTRPluginFramework that this plugin is based on
  * Team Operation Decoded for the English translation, without which I would not be able to fully enjoy this game.
- * Romsstar and SydMonague for their help in further understanding game mechanics and their friendly support.
+ * Romsstar and SydMontague for their help in further understanding game mechanics and their friendly support.
  * Jared#0199 (Discord) for testing and motivation to work on 3DS plugins again.
