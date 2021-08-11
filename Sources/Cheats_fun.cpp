@@ -433,7 +433,7 @@ void replacePartnerDigimonFunc(MenuEntry *entry)
             if (choice >= 0) {
                 bool answer = MessageBox(Utils::Format("Are you sure you want %s?", freshOptions[choice].name), DialogType::DialogYesNo, ClearScreen::Bottom)();
                 if (!answer) return;
-                if (!WRITE8(evoTarget_addr, freshOptions[choice].value)) goto error;
+                if (!WRITE32(evoTarget_addr, freshOptions[choice].id)) goto error;
                 if (!WRITE8(action_addr, EVOLVE)) goto error;
             }
             break;
@@ -449,7 +449,7 @@ void replacePartnerDigimonFunc(MenuEntry *entry)
             if (choice >= 0) {
                 bool answer = MessageBox(Utils::Format("Are you sure you want %s?", inTrainingOptions[choice].name), DialogType::DialogYesNo, ClearScreen::Bottom)();
                 if (!answer) return;
-                if (!WRITE8(evoTarget_addr, inTrainingOptions[choice].value)) goto error;
+                if (!WRITE32(evoTarget_addr, inTrainingOptions[choice].id)) goto error;
                 if (!WRITE8(action_addr, EVOLVE)) goto error;
             }
             break;
@@ -465,7 +465,7 @@ void replacePartnerDigimonFunc(MenuEntry *entry)
             if (choice >= 0) {
                 bool answer = MessageBox(Utils::Format("Are you sure you want %s?", rookieOptions[choice].name), DialogType::DialogYesNo, ClearScreen::Bottom)();
                 if (!answer) return;
-                if (!WRITE8(evoTarget_addr, rookieOptions[choice].value)) goto error;
+                if (!WRITE32(evoTarget_addr, rookieOptions[choice].id)) goto error;
                 if (!WRITE8(action_addr, EVOLVE)) goto error;
             }
             break;
@@ -481,7 +481,7 @@ void replacePartnerDigimonFunc(MenuEntry *entry)
             if (choice >= 0) {
                 bool answer = MessageBox(Utils::Format("Are you sure you want %s?", championOptions[choice].name), DialogType::DialogYesNo, ClearScreen::Bottom)();
                 if (!answer) return;
-                if (!WRITE8(evoTarget_addr, championOptions[choice].value)) goto error;
+                if (!WRITE32(evoTarget_addr, championOptions[choice].id)) goto error;
                 if (!WRITE8(action_addr, EVOLVE)) goto error;
             }
             break;
@@ -497,7 +497,7 @@ void replacePartnerDigimonFunc(MenuEntry *entry)
             if (choice >= 0) {
                 bool answer = MessageBox(Utils::Format("Are you sure you want %s?", ultimateOptions[choice].name), DialogType::DialogYesNo, ClearScreen::Bottom)();
                 if (!answer) return;
-                if (!WRITE8(evoTarget_addr, ultimateOptions[choice].value)) goto error;
+                if (!WRITE32(evoTarget_addr, ultimateOptions[choice].id)) goto error;
                 if (!WRITE8(action_addr, EVOLVE)) goto error;
             }
             break;
@@ -513,7 +513,7 @@ void replacePartnerDigimonFunc(MenuEntry *entry)
             if (choice >= 0) {
                 bool answer = MessageBox(Utils::Format("Are you sure you want %s?", megaOptions[choice].name), DialogType::DialogYesNo, ClearScreen::Bottom)();
                 if (!answer) return;
-                if (!WRITE8(evoTarget_addr, megaOptions[choice].value)) goto error;
+                if (!WRITE32(evoTarget_addr, megaOptions[choice].id)) goto error;
                 if (!WRITE8(action_addr, EVOLVE)) goto error;
             }
             break;

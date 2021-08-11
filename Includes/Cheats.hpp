@@ -119,6 +119,27 @@ using StringVector = std::vector<std::string>;
 #define assets_addr 0x14000000
 // ?? Player Run Speed?? (float): 0x17264B8
 // ?? Player Walk Speed?? (float): 0x17264BC
+// Digimon Definition Struct (0x9C * 248): 0x17116530
+// Digimon Raising Struct (0x3C * 248): 0x171204E4
+
+#define digimonDefine_addr (assets_addr + 0x3116530)
+// ID (u16): 0x0
+// Chr ID (u16): 0x2
+// Evolist Pos (u16): 0x4
+// Evo Level (u8): 0x6
+// Attribute (u8): 0x7
+// Scale (float): 0x8
+// ...
+
+
+#define digimonRaise_addr (assets_addr + 0x3120430)
+// Sleep Schedule (u32): 0x0
+// Favorite Food (u32): 0x4
+// Fullness Limit (u8): 0x8
+// Training Type (u8): 0x9
+// Liked Areas (u16): 0xA
+// Energy Usage Mod (float): 0xC
+// ...
 
 /*
 u8 digimonList[179] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,18,19,20,21,
@@ -138,7 +159,7 @@ u8 digimonList[179] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,18,19,20,21,
 struct DigimonList
 {
     const char *name;
-    const u8 value;
+    const u32 id;
 };
 
 extern const std::vector<DigimonList> freshOptions;

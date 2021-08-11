@@ -18,27 +18,44 @@ void toggleOverlayFunc(MenuEntry *entry)
 }
 
 // Searches through Digimon groups for matching ID and returns name string
-std::string findDigimon(u8 id)
+std::string findDigimon(u32 id)
 {
     for (int i = 0; i < freshOptions.size(); i++)
-        if (freshOptions[i].value == id)
+        if (freshOptions[i].id == id)
             return freshOptions[i].name;
     for (int i = 0; i < inTrainingOptions.size(); i++)
-        if (inTrainingOptions[i].value == id)
+        if (inTrainingOptions[i].id == id)
             return inTrainingOptions[i].name;
     for (int i = 0; i < rookieOptions.size(); i++)
-        if (rookieOptions[i].value == id)
+        if (rookieOptions[i].id == id)
             return rookieOptions[i].name;
     for (int i = 0; i < championOptions.size(); i++)
-        if (championOptions[i].value == id)
+        if (championOptions[i].id == id)
             return championOptions[i].name;
     for (int i = 0; i < ultimateOptions.size(); i++)
-        if (ultimateOptions[i].value == id)
+        if (ultimateOptions[i].id == id)
             return ultimateOptions[i].name;
     for (int i = 0; i < megaOptions.size(); i++)
-        if (megaOptions[i].value == id)
+        if (megaOptions[i].id == id)
             return megaOptions[i].name;
     return "Unknown";                
+}
+
+// Searches Digimon Raise structs for fullness limit
+u8 getFullnessLimit(u32 id)
+{
+    u16 digiDefineID;
+    u8 fullnessLimit;
+    for (int i = 0; i < 248; i++)
+    {
+        if (!READ16(digimonDefine_addr + (0x9C * i), digiDefineID)) return 0;
+        if (digiDefineID == id)
+        {
+            if (!READ8((digimonRaise_addr + (0x3C * i)) + 0x8, fullnessLimit)) return 0;
+            return fullnessLimit;
+        }
+    }
+    return 0;
 }
 
 // Draws and populates the terminal OSD with info
@@ -50,8 +67,9 @@ bool Terminal(const Screen& screen)
     Color color_warning(Color::Red);
 
     std::string name;
-    u8 id = 0;
-    std::string digimon;
+    u32 id = 0;
+    static u32 prevID = 0;
+    static std::string digimon;
     u32 life = 0;
     u32 evolve = 0;
     u32 poop1 = 0;
@@ -63,11 +81,11 @@ bool Terminal(const Screen& screen)
     u8 care = 0;
     u8 poopMeter = 0;
     u8 fullness = 0;
+    static u8 fullnessLimit = 0;
     u8 isHungry = 0;
 
     READSTRING(digimon_addr, name, 16, StringFormat::Utf16);
-    READ8(digimon_addr + 0x14, id);
-    digimon = findDigimon(id);
+    READ32(digimon_addr + 0x14, id);
     READ32(digimon_addr + 0x55C, life);
     READ32(digimon_addr + 0x560, evolve);
     READ32(digimon_addr + 0x54C, poop1);
@@ -80,6 +98,13 @@ bool Terminal(const Screen& screen)
     READ8(digimon_addr + 0x48, poopMeter);
     READ8(digimon_addr + 0x538, fullness);
     READ8(digimon_addr + 0x539, isHungry);
+
+    if (prevID != id)
+    {
+        digimon = findDigimon(id);
+        fullnessLimit = getFullnessLimit(id);
+        prevID = id;
+    }
 
     if (!screen.IsTop)
         return false;
@@ -133,8 +158,8 @@ bool Terminal(const Screen& screen)
     y = screen.Draw(Utils::Format("Happy: %3d%%", (u32)happiness), x+90, y, color);
     y = screen.Draw(Utils::Format("Care Mistakes: %d", care), x, y, color);
     screen.Draw("Fullness:   ", x, y, color);
-    screen.Draw("/40", x+84, y, color);
-    y = screen.Draw(Utils::Format("%2d", fullness), x+72, y, isHungry ? color_warning : color);
+    screen.Draw(Utils::Format("/%d", fullnessLimit), x+84, y, color);
+    y = screen.Draw(Utils::Format("%3d", fullness), x+66, y, isHungry ? color_warning : color);
     screen.Draw(Utils::Format("Poop Meter: %2d/16", poopMeter), x, y, color);
 
     return true;
