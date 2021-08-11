@@ -45,7 +45,7 @@ void InitMenu(PluginMenu &Menu)
     if (System::IsNew3DS())
     {
         *QoL += Entry("Map C-Stick to D-Pad", mapDPAD2CStickFunc);
-        *QoL += Entry("Enable 60 FPS (See Note)", "Unstable, may crash during video scenes", enable60FPSFunc);
+        *QoL += Entry("Enable 60 FPS (See Note)", "Unstable, may crash during video scenes. Need to have 3DS clockspeed set to 804MHz & L2 Cache enabled.", enable60FPSFunc);
     }
     *QoL += Entry("Increase Render Distance x4", enhanceRenderDistance);
     *QoL += g_setRunSpeedFunc;
