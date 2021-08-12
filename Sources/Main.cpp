@@ -67,7 +67,7 @@ namespace CTRPluginFramework
     
     int main(void)
     {	
-        PluginMenu *Menu = new PluginMenu("Re:Decode", 1, 1, 0, about);
+        PluginMenu *Menu = new PluginMenu("Re:Decode", 1, 1, 1, about);
 
         Menu->ShowWelcomeMessage(false);
         Menu->SynchronizeWithFrame(true);
