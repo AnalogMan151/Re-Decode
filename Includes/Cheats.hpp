@@ -121,6 +121,7 @@ using StringVector = std::vector<std::string>;
 // ?? Player Walk Speed?? (float): 0x17264BC
 // Digimon Definition Struct (0x9C * 248): 0x17116530
 // Digimon Raising Struct (0x3C * 248): 0x171204E4
+// Struct of IDs and Offsets to names (0x8*249): 0x1806ADC
 
 #define digimonDefine_addr (assets_addr + 0x3116530)
 // ID (u16): 0x0

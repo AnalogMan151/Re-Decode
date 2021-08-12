@@ -35,47 +35,6 @@ void toggleOverlayFunc(MenuEntry *entry)
         OSD::Stop(Terminal);
 }
 
-// Searches through Digimon groups for matching ID and returns name string
-std::string findDigimon(u32 id)
-{
-    for (int i = 0; i < freshOptions.size(); i++)
-        if (freshOptions[i].id == id)
-            return freshOptions[i].name;
-    for (int i = 0; i < inTrainingOptions.size(); i++)
-        if (inTrainingOptions[i].id == id)
-            return inTrainingOptions[i].name;
-    for (int i = 0; i < rookieOptions.size(); i++)
-        if (rookieOptions[i].id == id)
-            return rookieOptions[i].name;
-    for (int i = 0; i < championOptions.size(); i++)
-        if (championOptions[i].id == id)
-            return championOptions[i].name;
-    for (int i = 0; i < ultimateOptions.size(); i++)
-        if (ultimateOptions[i].id == id)
-            return ultimateOptions[i].name;
-    for (int i = 0; i < megaOptions.size(); i++)
-        if (megaOptions[i].id == id)
-            return megaOptions[i].name;
-    return "Unknown";                
-}
-
-// Searches Digimon Raise structs for fullness limit
-u8 getFullnessLimit(u32 id)
-{
-    u16 digiDefineID;
-    u8 fullnessLimit;
-    for (int i = 0; i < 248; i++)
-    {
-        if (!READ16(digimonDefine_addr + (0x9C * i), digiDefineID)) return 0;
-        if (digiDefineID == id)
-        {
-            if (!READ8((digimonRaise_addr + (0x3C * i)) + 0x8, fullnessLimit)) return 0;
-            return fullnessLimit;
-        }
-    }
-    return 0;
-}
-
 // Draws and populates the terminal OSD with info
 bool Terminal(const Screen& screen)
 {
@@ -86,10 +45,10 @@ bool Terminal(const Screen& screen)
     Color bg = Color(0x282828FF);
     static Clock timer;
 
-    std::string name;
+    std::string nickName;
     u32 id = 0;
-    static u32 prevID = 0;
-    static std::string digimon;
+    u32 dName_off = 0;
+    std::string digimonName;
     u32 life = 0;
     u32 evolve = 0;
     u32 poop1 = 0;
@@ -101,11 +60,13 @@ bool Terminal(const Screen& screen)
     u8 care = 0;
     u8 poopMeter = 0;
     u8 fullness = 0;
-    static u8 fullnessLimit = 0;
+    u8 fullnessLimit = 0;
     u8 isHungry = 0;
 
-    READSTRING(digimon_addr, name, 16, StringFormat::Utf16);
+    READSTRING(digimon_addr, nickName, 16, StringFormat::Utf16);
     READ32(digimon_addr + 0x14, id);
+    READ32(((assets_addr + 0x1806ADC) + id * 8) + 4, dName_off);
+    READSTRING(((assets_addr + 0x1806ADC) + id * 8) + dName_off, digimonName, 40, StringFormat::Utf16);
     READ32(digimon_addr + 0x55C, life);
     READ32(digimon_addr + 0x560, evolve);
     READ32(digimon_addr + 0x54C, poop1);
@@ -119,14 +80,8 @@ bool Terminal(const Screen& screen)
     READ8(digimon_addr + 0x53C, care);
     READ8(digimon_addr + 0x48, poopMeter);
     READ8(digimon_addr + 0x538, fullness);
+    READ8((digimonRaise_addr + (0x3C * (id-1))) + 0x8, fullnessLimit);
     READ8(digimon_addr + 0x539, isHungry);
-
-    if (prevID != id)
-    {
-        digimon = findDigimon(id);
-        fullnessLimit = getFullnessLimit(id);
-        prevID = id;
-    }
 
     if (!screen.IsTop)
         return false;
@@ -166,8 +121,8 @@ bool Terminal(const Screen& screen)
         x += 7;
         y += 2;
 
-        y = screen.Draw("root$ cat ~/.status/" + name, x, y, color, bg);
-        y = screen.Draw(Utils::Format("ID: [%3d] ", id) + digimon, x, y, color, bg);
+        y = screen.Draw("root$ cat ~/.status/" + nickName, x, y, color, bg);
+        y = screen.Draw(Utils::Format("ID: [%3d] ", id) + digimonName, x, y, color, bg);
 
         std::string life_evolveStr = Utils::Format("Life: %d:%02d:%02d  Evolve: %d:%02d:%02d",
             life/216000, (life%216000)/3600, (life%3600)/60, 
@@ -176,9 +131,9 @@ bool Terminal(const Screen& screen)
         
         std::string poop_sleepStr;
         if (hasToPoop)
-            poop_sleepStr = Utils::Format("Poop:   %d:%02d  Sleep:    %d:%02d", (poop1 + poop2)/3600, ((poop1 + poop2)%3600)/60, sleep/3600, (sleep%3600)/60);
+            poop_sleepStr = Utils::Format("Poop:   %2d:%02d  Sleep:    %2d:%02d", (poop1 + poop2)/3600, ((poop1 + poop2)%3600)/60, sleep/3600, (sleep%3600)/60);
         else
-            poop_sleepStr = Utils::Format("Poop: No Need  Sleep:    %d:%02d", sleep/3600, (sleep%3600)/60);
+            poop_sleepStr = Utils::Format("Poop: No Need  Sleep:    %2d:%02d", sleep/3600, (sleep%3600)/60);
         y = screen.Draw(poop_sleepStr, x, y, color, bg);
         screen.Draw(Utils::Format("Disc: %d%%", (u32)discipline), x, y, color, bg);
         y = screen.Draw(Utils::Format("Happy:  %d%%", (u32)happiness), x+90, y, color, bg);
