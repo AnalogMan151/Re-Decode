@@ -263,6 +263,7 @@ void setDigiNameKBFunc(MenuEntry *entry);
 void replacePartnerDigimonFunc(MenuEntry *entry);
 
 // OSD Functions
+void swapOverlayScreenFunc(MenuEntry *entry);
 void toggleOverlayFunc(MenuEntry *entry);
 bool Terminal(const Screen& screen);
 

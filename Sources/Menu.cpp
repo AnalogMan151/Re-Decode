@@ -117,7 +117,8 @@ void InitMenu(PluginMenu &Menu)
     // Informative, non-interactive entries to explain additional features
     Menu += Entry("Terminal (Hold Start or Select)", "Opens a terminal window of info. \n\n"
                                                      "Start opens full terminal. May experience lag while open.\n"
-                                                     "Select opens mini terminal. Mini terminal is lag free.");
+                                                     "Select opens mini terminal. Mini terminal is lag free.\n"
+                                                     "Check box to swap overlay to bottom screen.", swapOverlayScreenFunc);
     Menu += Entry("Additional Info", "Save often. While tested it's better safe than sorry.\n\n"
                                      "Entries with [KB] can be customized with the keyboard icon.\n\n"
                                      "Some cheats require loading a save, read the message boxes to know which ones.\n\n"

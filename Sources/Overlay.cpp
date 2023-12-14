@@ -3,6 +3,16 @@
 using namespace CTRPluginFramework;
 
 static bool full = true;
+static bool top = true;
+
+void swapOverlayScreenFunc(MenuEntry *entry)
+{
+    if (!entry->IsActivated()) 
+    {
+        top = true;
+    }
+    else top = false;
+}
 
 // Hold START for 1.5 seconds to Run or Stop OSD
 void toggleOverlayFunc(MenuEntry *entry)
@@ -38,8 +48,18 @@ void toggleOverlayFunc(MenuEntry *entry)
 // Draws and populates the terminal OSD with info
 bool Terminal(const Screen& screen)
 {
-    int x = 206;
-    int y = 10;
+    int x;
+    int y;
+
+    if (top)
+    {
+        x = 206;
+        y = 10;
+    } else {
+        x = 126;
+        y = 10;
+    }
+
     Color color= Color(0x33FF33FF);
     Color color_warning(0xFFBB00FF);
     Color bg = Color(0x282828FF);
@@ -83,9 +103,15 @@ bool Terminal(const Screen& screen)
     READ8((digimonRaise_addr + (0x3C * (id-1))) + 0x8, fullnessLimit);
     READ8(digimon_addr + 0x539, isHungry);
 
-    if (!screen.IsTop)
-        return false;
-    
+    if (top)
+    {
+        if (!screen.IsTop)
+            return false;
+    } else {
+        if (screen.IsTop)
+            return false;
+    }
+
     if (full)
     {
         // Draw background window
@@ -146,20 +172,30 @@ bool Terminal(const Screen& screen)
     else
     {
         // Draw minimilistic ticker info
+
+        if (top)
+        {
+            x = 116;
+            y = 0;
+        } else {
+            x = 36;
+            y = 230;
+        }
+
         if (hasToPoop)
         {
             screen.Draw(Utils::Format("L|%d:%02d:%02d E|%d:%02d:%02d S|%02d:%02d P|%02d:%02d F|%03d CM|%02d",
                 life / 216000, (life % 216000) / 3600, (life % 3600) / 60,
                 evolve / 216000, (evolve % 216000) / 3600, (evolve % 3600) / 60, 
                 sleep / 3600, (sleep % 3600) / 60, (poop1+poop2) / 3600, ((poop1 + poop2) % 3600) /60,
-                fullness, care), 116, 0, color, bg);
+                fullness, care), x, y, color, bg);
         }
         else
         {
             screen.Draw(Utils::Format("L|%d:%02d:%02d E|%d:%02d:%02d S|%02d:%02d P|--:-- F|%03d CM|%02d",
                 life / 216000, (life % 216000) / 3600, (life % 3600) / 60,
                 evolve / 216000, (evolve % 216000) / 3600, (evolve % 3600) / 60, 
-                sleep / 3600, (sleep % 3600) / 60, fullness, care), 116, 0, color, bg);
+                sleep / 3600, (sleep % 3600) / 60, fullness, care), x, y, color, bg);
         }
     }
     return true;
