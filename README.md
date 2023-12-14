@@ -93,7 +93,7 @@
  * On-Screen overlay that displays a variety of hidden info such as timers and care mistakes.
 
  ## Build:
- Requires DEVKITPRO/DEVKITARM, libCTRU, portlibs, and libCTRPF (0.7.0). Run `make` or `make release` from repo directory.
+ Requires DEVKITPRO/DEVKITARM, libCTRU, portlibs, and libCTRPF (0.7.4). Run `make` or `make release` from repo directory.
 
  ## Credits:
  * Nanquitas for creating the CTRPluginFramework that this plugin is based on

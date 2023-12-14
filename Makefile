@@ -26,7 +26,7 @@ ARCH		:=	-march=armv6k -mtune=mpcore -mfloat-abi=hard -mtp=soft
 CFLAGS		:=	$(ARCH) -Os -mword-relocations \
 				-fomit-frame-pointer -ffunction-sections -fno-strict-aliasing
 
-CFLAGS		+=	$(INCLUDE) -DARM11 -D_3DS 
+CFLAGS		+=	$(INCLUDE) -D__3DS__
 
 CXXFLAGS	:= $(CFLAGS) -fno-rtti -fno-exceptions -std=gnu++11
 
@@ -74,7 +74,7 @@ $(BUILD):
 #---------------------------------------------------------------------------------
 clean:
 	@echo Cleaning ... 
-	@rm -fr $(BUILD) $(RELEASE) $(OUTPUT).3gx $(OUTPUT).zip
+	@rm -fr $(BUILD) $(RELEASE) $(OUTPUT).3gx $(OUTPUT).elf $(OUTPUT).zip
 
 re: clean all
 
@@ -84,7 +84,6 @@ release: $(BUILD)
 	@echo Creating Release folder ...
 	@mkdir -p $(CURDIR)/$(RELEASE)/luma/plugins/$(TITLEID)/
 	@echo Copying files....
-	@cp $(CURDIR)/boot.firm $(CURDIR)/$(RELEASE)/boot.firm
 	@cp $(OUTPUT).3gx $(RELEASE)/luma/plugins/$(TITLEID)/$(PLGNAME).3gx
 	@echo Zipping release...
 	@cd $(RELEASE); zip -r9T ../$(PLGNAME).zip *
@@ -110,6 +109,7 @@ $(OUTPUT).3gx : $(OFILES)
 	@$(bin2o)
 
 #---------------------------------------------------------------------------------
+.PRECIOUS: %.elf
 %.3gx: %.elf
 #---------------------------------------------------------------------------------
 	@echo Creating $(notdir $@)

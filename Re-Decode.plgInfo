@@ -2,8 +2,8 @@ Author: AnalogMan
 
 Version: # Plugin version
     Major: 1
-    Minor: 1
-    Revision: 1
+    Minor: 2
+    Revision: 0
 
 Targets: 0x000AFC00
 
@@ -16,3 +16,7 @@ Description: |-
     Additional extra thanks to Romsstar and SydMontague for being friendly and helping me break through the the Digital World's defenses yet again (those fools!).
     One more mention: I fully blame Jared#0199 on Discord for the ridiculous crunch I put into this plugin for without them I would not have been motivated enough to get back into 3DS development.
     Please enjoy wreaking havoc over these 1's and 0's.
+
+Compatibility: Any
+
+MemorySize: 5MiB
