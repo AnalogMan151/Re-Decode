@@ -74,15 +74,15 @@ void setATKFunc(MenuEntry *entry)
 
     keyboard.GetMessage() = Utils::Format("ATK: %d", input);
 
-    keyboard.SetMaxLength(3);
+    keyboard.SetMaxLength(4);
     keyboard.IsHexadecimal(false);
     if (keyboard.Open(input) != -1)
     {
-        if (input >= 1 && input <= 999) {
+        if (input >= 1 && input <= 9999) {
             if (!WRITE16(ATK_addr, input)) goto error;
             MessageBox("Brute force attack altered successfully", DialogType::DialogOk, ClearScreen::Bottom)();
         } else {
-            MessageBox("Invalid input (1-999)", DialogType::DialogOk, ClearScreen::Bottom)();
+            MessageBox("Invalid input (1-9999)", DialogType::DialogOk, ClearScreen::Bottom)();
         }
     }
     return;
@@ -103,15 +103,15 @@ void setDEFFunc(MenuEntry *entry)
 
     keyboard.GetMessage() = Utils::Format("DEF: %d", input);
 
-    keyboard.SetMaxLength(3);
+    keyboard.SetMaxLength(4);
     keyboard.IsHexadecimal(false);
     if (keyboard.Open(input) != -1)
     {
-        if (input >= 1 && input <= 999) {
+        if (input >= 1 && input <= 9999) {
             if (!WRITE16(DEF_addr, input)) goto error;
             MessageBox("Firewall capability altered successfully", DialogType::DialogOk, ClearScreen::Bottom)();
         } else {
-            MessageBox("Invalid input (1-999)", DialogType::DialogOk, ClearScreen::Bottom)();
+            MessageBox("Invalid input (1-9999)", DialogType::DialogOk, ClearScreen::Bottom)();
         }
     }
     return;
@@ -132,15 +132,15 @@ void setSPDFunc(MenuEntry *entry)
 
     keyboard.GetMessage() = Utils::Format("SPD: %d", input);
 
-    keyboard.SetMaxLength(3);
+    keyboard.SetMaxLength(4);
     keyboard.IsHexadecimal(false);
     if (keyboard.Open(input) != -1)
     {
-        if (input >= 1 && input <= 999) {
+        if (input >= 1 && input <= 9999) {
             if (!WRITE16(SPD_addr, input)) goto error;
             MessageBox("Clock speed tuned successfully", DialogType::DialogOk, ClearScreen::Bottom)();
         } else {
-            MessageBox("Invalid input (1-999)", DialogType::DialogOk, ClearScreen::Bottom)();
+            MessageBox("Invalid input (1-9999)", DialogType::DialogOk, ClearScreen::Bottom)();
         }
     }
     return;
@@ -161,15 +161,15 @@ void setBRNFunc(MenuEntry *entry)
 
     keyboard.GetMessage() = Utils::Format("BRN: %d", input);
 
-    keyboard.SetMaxLength(3);
+    keyboard.SetMaxLength(4);
     keyboard.IsHexadecimal(false);
     if (keyboard.Open(input) != -1)
     {
-        if (input >= 1 && input <= 999) {
+        if (input >= 1 && input <= 9999) {
             if (!WRITE16(BRN_addr, input)) goto error;
             MessageBox("Processing power adjusted successfully", DialogType::DialogOk, ClearScreen::Bottom)();
         } else {
-            MessageBox("Invalid input (1-999)", DialogType::DialogOk, ClearScreen::Bottom)();
+            MessageBox("Invalid input (1-9999)", DialogType::DialogOk, ClearScreen::Bottom)();
         }
     }
     return;
